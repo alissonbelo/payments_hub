@@ -78,4 +78,10 @@ pipeline {
     }
 
     post {
-        always
+        always {
+            sh 'docker rm -f "$DB_CONTAINER" || true'
+        }
+        success { echo 'Pipeline verde!' }
+        failure { echo 'Pipeline quebrou. Veja o stage em vermelho.' }
+    }
+}
