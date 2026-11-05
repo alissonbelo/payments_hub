@@ -4,6 +4,7 @@ pipeline {
     options {
         timeout(time: 20, unit: 'MINUTES')
         disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
     environment {
@@ -55,17 +56,26 @@ pipeline {
                     steps { sh 'mix deps.audit' }
                 }
                 stage('Testes') {
-                    steps { sh 'mix test' }
+                    steps {
+                        sh 'mix coveralls.html --umbrella'
+                    }
+                    post {
+                        always {
+                            junit allowEmptyResults: true, testResults: 'reports/junit/*.xml'
+                            publishHTML(target: [
+                                reportDir: 'cover',
+                                reportFiles: 'excoveralls.html',
+                                reportName: 'Cobertura',
+                                keepAll: true,
+                                alwaysLinkToLastBuild: true,
+                                allowMissing: true
+                            ])
+                        }
+                    }
                 }
             }
         }
     }
 
     post {
-        always {
-            sh 'docker rm -f "$DB_CONTAINER" || true'
-        }
-        success { echo 'Pipeline verde!' }
-        failure { echo 'Pipeline quebrou. Veja o stage em vermelho.' }
-    }
-}
+        always
