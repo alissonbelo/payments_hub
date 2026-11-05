@@ -14,7 +14,8 @@ defmodule PaymentsHubWeb.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -45,7 +46,9 @@ defmodule PaymentsHubWeb.MixProject do
       {:jason, "~> 1.2"},
       {:bandit, "~> 1.5"},
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:junit_formatter, "~> 3.4", only: :test},
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 

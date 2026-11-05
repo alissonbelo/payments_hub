@@ -13,7 +13,8 @@ defmodule PaymentsHub.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -41,7 +42,9 @@ defmodule PaymentsHub.MixProject do
       {:ecto_sql, "~> 3.13"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.2"},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:junit_formatter, "~> 3.4", only: :test},
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 

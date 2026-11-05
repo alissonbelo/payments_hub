@@ -8,13 +8,14 @@ defmodule PaymentsHub.Umbrella.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
   def cli do
     [
-      preferred_envs: [precommit: :test]
+      preferred_envs: [coveralls: :test, "coveralls.html": :test]
     ]
   end
 
@@ -33,7 +34,8 @@ defmodule PaymentsHub.Umbrella.MixProject do
   defp deps do
     [
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 

@@ -29,3 +29,8 @@ config :phoenix, :plug_init_mode, :runtime
 # Sort query params output of verified routes for robust url comparisons
 config :phoenix,
   sort_verified_routes_query_params: true
+
+config :junit_formatter,
+  report_dir: Path.expand("../reports/junit", __DIR__),
+  prepend_project_name?: true,
+  automatic_create_dir?: true

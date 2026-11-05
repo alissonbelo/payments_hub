@@ -11,7 +11,8 @@ defmodule Workers.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -26,7 +27,9 @@ defmodule Workers.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:junit_formatter, "~> 3.4", only: :test},
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 end
